@@ -4,8 +4,8 @@ import {newGame, getStart} from './Gameclass.js'
 const gameBackground  = document.createElement('div');
 const gameControllersField= document.createElement('div')
 
-const counterMove = 0
-const timer = 0
+const counterMove = '0'
+const timer = '00:00'
 
 function drawStartPage() {
   gameBackground.className = 'playing-bg';
@@ -32,9 +32,13 @@ function drawInfo () {
   const infoContainer = document.createElement('div')
   infoContainer.className = 'info-container'
   gameControllersField.append(infoContainer)
-  const infoLine = document.createElement('p')
+  const infoLine = document.createElement('span')
+  const infoTime = document.createElement('span')
   infoContainer.append(infoLine)
-  infoLine.textContent = `Move: ${counterMove} Time: ${timer}`
+  infoContainer.append(infoTime)
+  infoLine.textContent = `Move: ${counterMove}`
+  infoTime.textContent = `Time: ${timer}`
+  infoTime.className = 'timer'
 }
 
 function drawLevels () {
@@ -53,6 +57,9 @@ function drawLevels () {
     layoutLevel.append(levelBtn, labelLevel)
   }
   document.body.append(layoutLevel)
+  
+const defaultLevelItem = document.getElementById('4')
+defaultLevelItem.checked = true
 }
 
 

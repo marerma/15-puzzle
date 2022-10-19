@@ -29,33 +29,34 @@ html, body
   font-size: 16px
   margin-bottom: 20px
 
+.controls-btn:hover 
+  cursor: pointer
+
 .info-container
   width: 80%
   margin: 0 auto
   font-family: Arial, san-serif
   font-size: 16px
   color: black
+  display: flex
+  justify-content: space-around
  
-
-
-.canvas 
-  border: 1px solid #d3d3d3
-  background-color: #023B55
-  margin: auto
-  position: relative
-
 .field 
   border: 1px solid #d3d3d3
   background-color: #023B55
   margin: 0 auto
   position: relative
   display: grid
-  width: 400px
-  height: 400px
+  width: 500px
+  height: 500px
   gap: 10px
   padding: 10px
-  
   margin-bottom: 20px
+
+.opacity
+  opacity: 0.5
+  background-color: black
+
 
 .number-cell
   border: 1px solid #d3d3d3
@@ -64,24 +65,9 @@ html, body
   font-size: 36px
   color: black
   text-align: center
-  padding-top: 1.5rem
+  padding-top: 20%
+
   
-
-
-.move-right 
-  transform: translateX(100px)
-  left: 0px
-  animation-name: move-left
-  animation-duration: 2.5s
-
-
-.move-left 
-  transform: translateX(-100px)
-  left: 0px
-  animation-name: move-left
-  animation-duration: 2.5s
-
-
 
 .level
   display: flex

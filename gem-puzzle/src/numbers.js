@@ -1,8 +1,11 @@
-const numbers = []
 
-for(let i = 0; i < 16; i++) {
-  numbers.push(i)
-}
+  const numbers = (level) => {
+    let arr = []
+    for(let i = 0; i < level*level; i++) {
+      arr.push(i)}
+      return arr
+  }
+ 
 
 function sortNumbers (array) {
   let tmp, rnd
