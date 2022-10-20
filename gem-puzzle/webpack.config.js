@@ -5,6 +5,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin")
 const TerserWebpackPlugin = require('terser-webpack-plugin')
 const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 const isDev = process.env.NODE_ENV === 'development'
 const isProd = !isDev
@@ -81,7 +82,11 @@ const plugins = () => {
     new CleanWebpackPlugin(),
     new MiniCssExtractPlugin({
       filename: filename('css')
-    })
+    }),
+    new CopyWebpackPlugin({
+      patterns: [{from: "./assets", to: "assets" }]
+    }
+     )
   ]
 
   if (isProd) {
@@ -131,6 +136,13 @@ module.exports = {
       {
         test: /\.(ttf|woff|woff2|eot)$/,
         use: ['file-loader']
+      },
+      {
+        test: /\.mp3$/,
+        type: "assets",
+        generator: {
+          filename: 'audio/[name][ext]'
+        }
       },
       {
         test: /\.xml$/,

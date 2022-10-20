@@ -1,9 +1,9 @@
-import {numbers, sortNumbers} from './numbers.js'
+
 import {getMatrix, setGridTemplate} from './additionalFunc.js'
+import {numbers, sortNumbers, sortNumbersSolvable, sortArraySolvable} from './numbers.js'
 
 const newGameGrid = {
   field: document.createElement("div"),
-  //sortedNumbers: sortNumbers(numbers(4)),
   drawNewGame: function() {
     this.field.className = 'field opacity'
     this.field.width = 500;
@@ -11,7 +11,10 @@ const newGameGrid = {
     document.body.append(this.field)
   },
   fillCells: function(level) {
-    let sortedNumbers = sortNumbers(numbers(level))
+    //let sortedNumbers = sortNumbers(numbers(level))
+    let sortedNumbers = sortArraySolvable(numbers(level), level).flat(Infinity)
+
+   
     this.field.style.gridTemplateColumns = `repeat(${level}, 1fr)`
     this.field.style.gridTemplateRows = `repeat(${level}, 1fr)`
 
@@ -23,7 +26,7 @@ const newGameGrid = {
         textBlock.setAttribute('id', 'empty')
       } else {textBlock.textContent = `${sortedNumbers[i]}`}
       this.field.append(textBlock)
-      textBlock.setAttribute('order', `${i}`) 
+      textBlock.setAttribute('order', `${i+1}`) 
    }
 
   let allTiles = Array.from(document.querySelectorAll('.number-cell'))

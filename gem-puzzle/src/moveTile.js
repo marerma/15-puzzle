@@ -1,54 +1,71 @@
-import {newGameGrid, getStart} from './Gameclass.js'
-import {changeLevel} from './changeLevel'
-import {level} from './index.js'
 
+import {playSong} from './audio.js'
+import {isPlay, counterMoves} from './index.js'
+import {checkWin, getPopup} from './checkwin.js'
+import { numbers } from './numbers.js'
+
+let counter = 0
 
 function moveTile (level) {
+  const movesCounter = document.querySelector('.counter')
   let a = parseInt(level, 10)
-  
   const gameField = document.querySelector('.field')
-  const emptyField = document.getElementById('empty')
- 
-   
-  
-    gameField.addEventListener('click', (e) => {
-    
+
+  gameField.addEventListener('click', (e) => {
+    const emptyField = document.getElementById('empty')
     let targetField = e.target
     let gridTarget = targetField.style.gridArea
     let gridEmpty = emptyField.style.gridArea
     let targetFieldOrder = parseInt(targetField.getAttribute('order'),10)
     let emptyOrder = parseInt(emptyField.getAttribute('order'), 10)  
     let tileOrder = targetFieldOrder
+    let arrayToCheck
 
     const changeTilePosition = (order) => {
       emptyField.setAttribute('order', targetFieldOrder)
       targetField.setAttribute('order', order)
       targetField.style.gridArea = gridEmpty
       emptyField.style.gridArea = gridTarget 
+      movesCounter.innerHTML = `Move: ${counter}`
+      if(isPlay) {playSong()}
     }
-    
   
-    if ((parseInt(emptyOrder,10) - parseInt(targetFieldOrder,10)) === 1) {
+    if ((emptyOrder - targetFieldOrder) === 1 && targetFieldOrder % a != 0) {
       tileOrder = targetFieldOrder + 1
+      counter ++
+    
       changeTilePosition(tileOrder)
-    }
-
-    if ((parseInt(emptyOrder, 10) - parseInt(targetFieldOrder, 10)) === -1) {
-      tileOrder = Number(targetFieldOrder) - 1
+       arrayToCheck = checkWin()
+       getPopup(arrayToCheck, numbers(level))
+     
+      
+    } else if ((emptyOrder - targetFieldOrder) === -1 && emptyOrder % a != 0) {
+        tileOrder = Number(targetFieldOrder) - 1
+        counter ++
+      
       changeTilePosition(tileOrder)
-    } 
+      arrayToCheck = checkWin()
+       getPopup(arrayToCheck, numbers(level))
 
-    if ((parseInt(emptyOrder, 10) - parseInt(targetFieldOrder, 10)) === a) {
+      } else if ((emptyOrder - targetFieldOrder) === a) {
       tileOrder = Number(targetFieldOrder) + a
+      counter ++
+    
       changeTilePosition(tileOrder)
-     }
-
-     if ((parseInt(emptyOrder, 10) - parseInt(targetFieldOrder, 10)) === -a) {
+      arrayToCheck = checkWin()
+      getPopup(arrayToCheck, numbers(level))
+    
+     } else if ((emptyOrder - targetFieldOrder) === -a) {
+     
       tileOrder = Number(targetFieldOrder) - a
+      counter ++
+    
       changeTilePosition(tileOrder)
+      arrayToCheck = checkWin()
+      getPopup(arrayToCheck, numbers(level))
     }
-     else {return}
+
 })
 }
  
-export {moveTile}
+export {moveTile, counter}
