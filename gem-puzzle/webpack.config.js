@@ -84,7 +84,8 @@ const plugins = () => {
       filename: filename('css')
     }),
     new CopyWebpackPlugin({
-      patterns: [{from: "./assets", to: "assets" }]
+      patterns: [{from: "../assets", to: "assets" }],
+       noErrorOnMissing: true,
     }
      )
   ]
@@ -103,7 +104,8 @@ module.exports = {
   },
   output: {
     filename: filename('js'),
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, 'dist'),
+    assetModuleFilename: 'assets/[hash][ext]',
   },
   resolve: {
     extensions: ['.js', '.json', '.png'],
@@ -129,20 +131,23 @@ module.exports = {
         test: /\.s[ac]ss$/,
         use: cssLoaders('sass-loader')
       },
-      {
-        test: /\.(png|jpg|svg|gif)$/,
-        use: ['file-loader']
-      },
+        {
+      test: /\.(png|jpg|svg|gif)$/i,
+      //use: ['file-loader'],
+      type: 'asset/resource',
+    },
       {
         test: /\.(ttf|woff|woff2|eot)$/,
-        use: ['file-loader']
+        //use: ['file-loader'],
+        type: 'asset/resource',
       },
       {
         test: /\.mp3$/,
-        type: "assets",
-        generator: {
-          filename: 'audio/[name][ext]'
-        }
+        type: 'asset/resource',
+        // type: "assets",
+        // generator: {
+        //   filename: 'audio/[name][ext]'
+        // }
       },
       {
         test: /\.xml$/,

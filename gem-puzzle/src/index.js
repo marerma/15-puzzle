@@ -1,19 +1,26 @@
 import 'normalize.css'
-import '../styles/styles.sass'
+import './styles/styles.sass'
 import {drawStartPage, drawButtons, drawLevels, drawInfo, drawPopUp} from './drawPage.js'
-import {newGameGrid, getStart} from './Gameclass.js'
+import {newGameGrid, getStart, changeCellsState} from './Gameclass.js'
 import {moveTile} from './moveTile.js'
 import {countdown, t, clearTime} from './timer.js'
 import { changeLevel } from './changeLevel.js'
-import {setLocalStorage, getLocalStorage} from './localStorage.js'
-
+import {setLocalStorage, getStateGame, loadPopUp, loadSavedGame, loadPopUpResult} from './localStorage.js'
+import favicon from './assets/favicon.png'
+import soundBlack from './assets/icon-sound-black.png'
+import soundMute from './assets/icon-sound-mute2.png'
+import changaFont from './assets/Changa-VariableFont_wght.ttf'
+import changaBold from './assets/Changa-Bold.ttf'
 
 
 const defaultLevel = 4
 let level
 let isPlay = true
 let isMuted = false
-let counterMoves = 0
+let isActive = false
+let minutesDefault = 0
+let secondsDefault = 0
+
 
 function loadDefaultState (level) {
   drawStartPage()
@@ -21,17 +28,43 @@ function loadDefaultState (level) {
   drawInfo()
   getStart(level)
   drawLevels(level)
-  drawPopUp()
+  drawPopUp('win')
+  drawPopUp('load')
+  drawPopUp('result')
 }
 
+ let counter = 0
 
 window.onload = loadDefaultState(defaultLevel)
+
+window.addEventListener('load', ()=> {
+ 
+  if(localStorage.getItem('gameState')) {
+  loadPopUp()
+  const popUpLoad = document.querySelector('.load')
+
+  popUpLoad.addEventListener('click', (e)=> {
+    if(e.target.id === "yes") {
+      popUpLoad.classList.remove('open-popup')
+      loadSavedGame ()
+      counter = getStateGame().moves
+      moveTile(counter)   
+    } else {
+      popUpLoad.classList.remove('open-popup')
+      localStorage.removeItem('gameState')  
+      moveTile(counter)
+    }
+  })
+} else {
+moveTile(counter)
+}  
+})
 
 const levels = Array.from(document.querySelectorAll('.level-btn'))
 
 
 levels.forEach(el => el.addEventListener('input', (e)=> {
-  document.querySelector('.field').classList.add('opacity')
+  //document.querySelector('.field').classList.add('opacity')
   level = e.target.id 
   el.checked = false
   e.target.checked = true
@@ -49,37 +82,34 @@ levels.forEach(el => el.addEventListener('input', (e)=> {
 //     })
 
 
-function changeCellsState(level) {
-  newGameGrid.clearCells()
-  newGameGrid.fillCells(level)
-}
+// function changeCellsState(level, sortedNumbers = sortArraySolvable(numbers(level), level).flat(Infinity)) {
+//  // let sortedNumbers = sortArraySolvable(numbers(level), level).flat(Infinity)
 
-const startBtn = document.querySelectorAll('.controls-btn')[0]
+//   newGameGrid.clearCells()
+//   newGameGrid.fillCells(sortedNumbers, level)
+// }
+
+const shuffleBtn = document.querySelectorAll('.controls-btn')[0]
 //const stopBtn = document.querySelectorAll('.controls-btn')[1]
 const saveBtn = document.querySelectorAll('.controls-btn')[1]
 const resultBtn = document.querySelectorAll('.controls-btn')[2]
 const muteBtn = document.querySelector('.icon')
-let isActive = false
 
 
-startBtn.addEventListener('click', () => {
-  if(isActive) {
-    document.querySelector('.field').classList.toggle('opacity')
+
+
+shuffleBtn.addEventListener('click', () => {
+    document.querySelector('.field').classList.remove('opacity')
     clearTimeout(t)
     clearTime()
-    // clearTimeout(t)
-    isActive = false
-    startBtn.innerHTML = "START"
-    document.querySelector('.counter').innerHTML = `Move: 0`
-  } else {
-    startBtn.innerHTML = "NEW GAME"
-      level = changeLevel()
-      changeCellsState(level)
-      moveTile(level)
-      document.querySelector('.field').classList.toggle('opacity')
-      countdown()
-      isActive = true
-  }
+    //document.querySelector('.counter').innerHTML = `Move: 0`
+    level = changeLevel()
+    changeCellsState(level)
+    counter = 0
+    //moveTile()
+    countdown()  
+    //document.querySelector('.counter').innerHTML = `Move: 0`
+  
  
 })
 /*
@@ -97,26 +127,26 @@ stopBtn.addEventListener('click', () => {
   if(isPlay) {
     isMuted = true
     isPlay = false
-    document.querySelector('.icon img').src = "../assets/icon-sound-mute2.png"
+    document.querySelector('.icon img').src = soundMute
 
   } else {
     isMuted = false
     isPlay = true
-    document.querySelector('.icon img').src = "../assets/icon-sound-black.png"
+    document.querySelector('.icon img').src = soundBlack
   } 
  } )
 
 
-
-const closePopUp = document.querySelector('.close-icon')
-
-closePopUp.addEventListener('click', ()=> {
-  popup.classList.remove('open-popup')
-})
-
-
 saveBtn.addEventListener('click', () => {
   setLocalStorage()
+  clearTimeout(t)
 })
 
- export {isPlay, isMuted, isActive, counterMoves}
+
+resultBtn.addEventListener('click', () => {
+  loadPopUpResult()
+
+})
+
+
+export {isPlay, isMuted, isActive, minutesDefault, secondsDefault}

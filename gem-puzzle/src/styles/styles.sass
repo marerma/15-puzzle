@@ -1,0 +1,218 @@
+// @font-face 
+//   font-family: "Changa"
+//   font-style: normal
+//   src: url(../changaFont)
+
+// @font-face 
+//   font-family: "Changa"
+//   font-style: bold
+//   src: url(../changaBold)
+
+
+html, body
+  box-sizing: border-box
+  scroll-behavior: smooth
+  height: 100vh
+  width: 100vw
+  position: relative 
+  font-family: 'Trebuchet MS', sans-serif
+
+.playing-bg
+  width: 60%
+  margin: 0 auto
+  padding-top: 20px
+
+.gameControllersField
+  width: 100%
+  margin: 0 auto
+
+.btn-container
+  width: min(60vw, 500px)
+  margin: 0 auto
+  display: flex
+  justify-content: space-between
+  gap: 10px
+  margin-bottom: 20px
+  @media all and (max-width: 500px)
+    width:  min(60vw, 500px)
+    height:  min(60vw, 500px)
+    margin-bottom: 10px
+
+.controls-btn
+  width: min(50vw, 100px)
+  height: 40px
+  border: 2px solid #130231
+  border-radius: 5px
+  font-size: 16px
+  background-color:#606fb4
+  color: #130231
+  font-weight: bold
+ 
+
+.controls-btn:hover 
+  background-color: #167E7D
+  cursor: pointer
+  border: 2px solid #7E1674
+  text-decoration: underline
+  color:#7E1674
+  text-decoration-color: #7E1674
+
+.controls-btn:active 
+  cursor: pointer
+
+.icon 
+  width: 30px
+  height: 30px
+  img
+    width: auto
+    height: 100%
+    object-fit: contain
+
+.icon:hover
+  cursor: pointer
+
+.info-container
+  width: min(60vw, 500px)
+  margin: 0 auto
+  font-family: 'Trebuchet MS', san-serif
+  font-size: 26px
+  color: #130231
+  display: flex
+  justify-content: space-around
+  margin-bottom: 10px
+  margin-top: 10px
+  @media all and (max-width: 500px)
+    width: 300px
+    height: 300px
+ 
+.field 
+  border: 1px solid #d3d3d3
+  background-color: #023B55
+  margin: 0 auto
+  position: relative
+  display: grid
+  width: min(50vw, 600px)
+  height: min(50vw, 600px)
+  gap: 10px
+  padding: 10px
+  margin-bottom: 20px
+  border-radius: 10px
+  @media all and (max-width: 500px)
+    width: 300px
+    height: 300px
+    padding: 10px
+
+.opacity
+  opacity: 0.5
+  background-color: black
+
+
+.number-cell
+  border: 1px solid #d3d3d3
+  background-color: #4895bb
+  font-size: 40px
+  color: #d3d3d3
+  border-radius: 10px
+  text-align: center
+  padding-top: 20%
+  transition: outline ease-out 0.5s
+
+.number-cell:hover
+  transition: outline ease-out 0.5s
+  outline: 3px solid #7E1674
+  text-decoration: solid
+  cursor: pointer
+
+
+.number-cell:active
+  transition: outline ease-out 0.5s
+  outline: 3px solid #7E1674
+  text-decoration: solid
+  cursor: pointer
+  transform: scale(1.1)
+
+.level
+  display: flex
+  width: min(40vw, 400px)
+  margin: 0 auto
+  justify-content: space-between
+  font-size: 20px
+  color: #7E1674
+
+
+.level-btn
+  display: none
+
+.label
+  display: inline-block
+  cursor: pointer
+  padding: 0px 15px
+  line-height: 34px
+  border: 2px solid #999
+  border-radius: 15px
+  
+
+.level-btn:checked + .label
+  background: #023B55
+  color:#d3d3d3
+
+.label:hover 
+  color: #666
+
+.popup
+  width: 50vw
+  height: 50vh
+  position: absolute
+  z-index: 2
+  top: 25vh
+  left: 25vw
+  font-size: 36px
+  color: white
+  background-color: black
+  opacity: 0.9
+  visibility: hidden
+
+.win
+  p
+    margin: 0 auto
+    padding: 15vh 20px
+    text-align: center
+.popup span
+  position: absolute
+  right: 10px
+  top: 10px
+  cursor: pointer
+
+.result,.load
+  font-size: 46px
+  padding: 20px
+
+.result-list
+  font-size: 26px
+
+.record-title
+  margin: 0 auto
+  padding: 12px 20px
+  text-align: center
+
+.btn-pop
+  width: 80px
+  height: 30px
+  background-color: green
+  border: 1px solid white
+  display: inline-block
+  position: absolute
+  bottom: 5%
+  left: 20%
+  font-size: 20px
+  text-align: center
+  padding-top: 5px
+
+
+.btn-pop:last-child
+  left: 60%
+
+
+
+.open-popup
+  visibility: visible

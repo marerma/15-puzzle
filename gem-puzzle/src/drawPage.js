@@ -1,12 +1,15 @@
-import { Component } from "./component";
+import { toLoad } from "./localStorage.js";
 import {newGame, getStart} from './Gameclass.js'
+import soundBlack from './assets/icon-sound-black.png'
+import soundMute from './assets/icon-sound-mute2.png'
 
-const gameBackground  = document.createElement('div');
-const gameControllersField= document.createElement('div')
 
-const timer = '00:00'
+
 
 function drawStartPage() {
+
+  const gameBackground  = document.createElement('div');
+  const gameControllersField= document.createElement('div')
   gameBackground.className = 'playing-bg';
   document.body.append(gameBackground); 
   gameControllersField.className = 'gameControllersField';
@@ -17,7 +20,7 @@ function drawStartPage() {
 function drawButtons () {
   const buttonsContainer = document.createElement('div')
   buttonsContainer.className = 'btn-container'
-  gameControllersField.append(buttonsContainer)
+  document.body.append(buttonsContainer)
   const buttonsNames = ['start', 'save', 'results']
   for (let i = 0; i < 3; i++) {
     let btn = document.createElement('button') 
@@ -25,19 +28,14 @@ function drawButtons () {
     btn.textContent = buttonsNames[i].toLocaleUpperCase()
     buttonsContainer.append(btn)
   }
-  const icon = document.createElement('div')
-  const img =  document.createElement('img')
-  img.src = '../assets/icon-sound-black.png'
-  icon.append(img)
-  icon.className = 'icon'
-  buttonsContainer.append(icon)
 
 }
 
 function drawInfo () {
+  let timer = "00:00" 
   const infoContainer = document.createElement('div')
   infoContainer.className = 'info-container'
-  gameControllersField.append(infoContainer)
+  document.body.append(infoContainer)
   const infoLine = document.createElement('span')
   const infoTime = document.createElement('span')
   infoContainer.append(infoLine)
@@ -46,6 +44,13 @@ function drawInfo () {
   infoTime.textContent = `Time: ${timer}`
   infoTime.className = 'timer'
   infoLine.className = 'counter'
+  const icon = document.createElement('div')
+  const img =  document.createElement('img')
+  img.src = soundBlack
+  icon.append(img)
+  icon.className = 'icon'
+  infoContainer.append(icon)
+
 }
 
 function drawLevels (level) {
@@ -70,14 +75,13 @@ defaultLevelItem.checked = true
 }
 
 
-function drawPopUp () {
+function drawPopUp (className) {
   const popup = document.createElement('div')
-      popup.className = 'popup'
+      popup.className = `popup ${className}`
       const text = document.createElement('p')
       const close = document.createElement('span')
       close.textContent = 'X'
       close.className = 'close-icon'
-      text.textContent = `Hooray! You solved the puzzle in 00-00 and N moves!`
       document.body.append(popup)
       popup.append(close)
       popup.append(text)

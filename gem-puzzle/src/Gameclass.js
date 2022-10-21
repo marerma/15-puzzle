@@ -10,9 +10,9 @@ const newGameGrid = {
     this.field.height = 500;
     document.body.append(this.field)
   },
-  fillCells: function(level) {
+  fillCells: function(sortedNumbers, level) {
     //let sortedNumbers = sortNumbers(numbers(level))
-    let sortedNumbers = sortArraySolvable(numbers(level), level).flat(Infinity)
+   // let sortedNumbers = sortArraySolvable(numbers(level), level).flat(Infinity)
 
    
     this.field.style.gridTemplateColumns = `repeat(${level}, 1fr)`
@@ -43,10 +43,16 @@ const newGameGrid = {
   
 
 function getStart(level) {
+  let sortedNumbers = sortArraySolvable(numbers(level), level).flat(Infinity)
+  //let sortedNumbers = [1, 2, 3, 4 , 5 , 6, 7, 8, 9, 10, 11, 12, 13,14,0 ,15]
   newGameGrid.drawNewGame()
-  newGameGrid.fillCells(level)
+  newGameGrid.fillCells(sortedNumbers, level)
 }
 
+function changeCellsState(level, sortedNumbers = sortArraySolvable(numbers(level), level).flat(Infinity)) {
+   newGameGrid.clearCells()
+   newGameGrid.fillCells(sortedNumbers, level)
+ }
   
-export {newGameGrid, getStart}
+export {newGameGrid, getStart, changeCellsState}
 

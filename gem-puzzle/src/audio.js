@@ -1,8 +1,8 @@
 import {isPlay, isMuted} from './index.js'
-
+import audioFile from './assets/odinochnyiy-stuk.mp3'
 
 const audio = new Audio()
-audio.src = '../assets/odinochnyiy-stuk.mp3'
+audio.src = audioFile
 
 
 function playSong () { 
