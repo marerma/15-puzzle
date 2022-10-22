@@ -1,5 +1,4 @@
-import { moveTile } from './moveTile.js'
-import {t} from './timer.js'
+import {t} from './index.js'
 import {getResults} from './localStorage.js'
 
 const savedResults = []

@@ -1,20 +1,17 @@
 
 import {getMatrix, setGridTemplate} from './additionalFunc.js'
-import {numbers, sortNumbers, sortNumbersSolvable, sortArraySolvable} from './numbers.js'
+import {numbers, sortArraySolvable} from './numbers.js'
 
 const newGameGrid = {
   field: document.createElement("div"),
   drawNewGame: function() {
-    this.field.className = 'field opacity'
+    this.field.className = 'field'
     this.field.width = 500;
     this.field.height = 500;
     document.body.append(this.field)
   },
   fillCells: function(sortedNumbers, level) {
-    //let sortedNumbers = sortNumbers(numbers(level))
-   // let sortedNumbers = sortArraySolvable(numbers(level), level).flat(Infinity)
-
-   
+      
     this.field.style.gridTemplateColumns = `repeat(${level}, 1fr)`
     this.field.style.gridTemplateRows = `repeat(${level}, 1fr)`
 
@@ -24,6 +21,7 @@ const newGameGrid = {
       if (sortedNumbers[i] === 0) {
         textBlock.textContent = ''
         textBlock.setAttribute('id', 'empty')
+        textBlock.style.backgroundColor = '#AA96DA'
       } else {textBlock.textContent = `${sortedNumbers[i]}`}
       this.field.append(textBlock)
       textBlock.setAttribute('order', `${i+1}`) 

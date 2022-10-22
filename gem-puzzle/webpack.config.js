@@ -6,6 +6,7 @@ const CssMinimizerPlugin = require("css-minimizer-webpack-plugin")
 const TerserWebpackPlugin = require('terser-webpack-plugin')
 const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin')
 
 const isDev = process.env.NODE_ENV === 'development'
 const isProd = !isDev
@@ -83,9 +84,13 @@ const plugins = () => {
     new MiniCssExtractPlugin({
       filename: filename('css')
     }),
+    new FaviconsWebpackPlugin('./src/favicon.ico'),
     new CopyWebpackPlugin({
-      patterns: [{from: "../assets", to: "assets" }],
-       noErrorOnMissing: true,
+      patterns: [
+        {
+          from: "../assets", to: "assets" ,
+          noErrorOnMissing: true
+        }]
     }
      )
   ]

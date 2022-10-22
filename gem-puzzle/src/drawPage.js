@@ -1,9 +1,4 @@
-import { toLoad } from "./localStorage.js";
-import {newGame, getStart} from './Gameclass.js'
 import soundBlack from './assets/icon-sound-black.png'
-import soundMute from './assets/icon-sound-mute2.png'
-
-
 
 
 function drawStartPage() {
@@ -55,6 +50,7 @@ function drawInfo () {
 
 function drawLevels (level) {
   const layoutLevel = document.createElement("div")
+  const blockLevel = document.createElement("div")
   for (let i = 3; i < 9; i++) {
     const labelLevel = document.createElement("label")
     const levelBtn = document.createElement("input")
@@ -66,7 +62,8 @@ function drawLevels (level) {
     levelBtn.id = `${i}`
     labelLevel.setAttribute('for', `${i}`)
     labelLevel.textContent = `${i}x${i}`
-    layoutLevel.append(levelBtn, labelLevel)
+    blockLevel.append(levelBtn, labelLevel)
+    layoutLevel.append(blockLevel)
   }
   document.body.append(layoutLevel)
   
@@ -87,4 +84,13 @@ function drawPopUp (className) {
       popup.append(text)
 }
 
-export {drawStartPage, drawButtons, drawInfo, drawLevels, drawPopUp}
+function drawGreeting () {
+  const popup = document.createElement('div')
+  popup.className = 'greeting'
+  const text = document.createElement('p')
+  document.body.append(popup)
+  popup.append(text) 
+  text.textContent = 'Push Start-button to start a new game'
+}
+
+export {drawStartPage, drawButtons, drawInfo, drawLevels, drawPopUp, drawGreeting}
