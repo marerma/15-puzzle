@@ -32,7 +32,7 @@ function loadDefaultState (level) {
   drawPopUp('win')
   drawPopUp('load')
   drawPopUp('result')
-
+  drawGreeting()
 }
 
 
@@ -56,13 +56,11 @@ window.addEventListener('load', ()=> {
       gameField.addEventListener('click', changePosition) 
     } else {
       popUpLoad.classList.remove('open-popup')
-      localStorage.removeItem('gameState') 
       document.querySelector('.greeting').style.display ='block'
+      localStorage.removeItem('gameState') 
     }
   })
-}
-  drawGreeting()
-
+} else document.querySelector('.greeting').style.display ='block'
 })
 
 const levels = Array.from(document.querySelectorAll('.level-btn'))

@@ -75,6 +75,7 @@ const jsLoaders = () => {
 const plugins = () => {
   const base = [
     new HTMLWebpackPlugin({
+      favicon: "./src/favicon.ico",
       template: './index.html',
       minify: {
         collapseWhitespace: isProd
@@ -84,7 +85,7 @@ const plugins = () => {
     new MiniCssExtractPlugin({
       filename: filename('css')
     }),
-    new FaviconsWebpackPlugin('./src/favicon.ico'),
+    //new FaviconsWebpackPlugin('./src/favicon.ico'),
     new CopyWebpackPlugin({
       patterns: [
         {
@@ -120,7 +121,7 @@ module.exports = {
     port: 4200,
     hot: isDev
   },
-  devtool: isDev ? 'source-map' : '',
+  devtool: isDev ? 'source-map' : false,
   plugins: plugins(),
   module: {
     rules: [
