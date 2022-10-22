@@ -9,6 +9,7 @@ import soundMute from './assets/icon-sound-mute2.png'
 import {pauseSong, playSong} from './audio'
 import {checkWin, getPopup} from './checkwin.js'
 import { numbers } from './numbers.js'
+import { score } from './score.js'
 
 
 const defaultLevel = 4
@@ -152,6 +153,7 @@ resultBtn.addEventListener('click', () => {
 
 })
 
+score()
 
 
 function changePosition (e) {
