@@ -89,7 +89,7 @@ const plugins = () => {
     new CopyWebpackPlugin({
       patterns: [
         {
-          from: "../assets", to: "assets" ,
+          from: "./assets", to: "assets" ,
           noErrorOnMissing: true
         }]
     }
