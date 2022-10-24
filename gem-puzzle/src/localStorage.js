@@ -31,23 +31,31 @@ function getResults() {
 }
 
 function loadPopUpResult () {
-  if(localStorage.getItem('bestResults')) {
   const popUpResult = document.querySelector('.result')
-  let bestResults = JSON.parse(localStorage.getItem('bestResults'))
-  bestResults.sort((a,b)=> a.moves - b.moves) //сортировка по кол-ву движений
-  let textFull =''
-  for (let i = 0; i < bestResults.length; i++) {
-    let textItem = `<li class="result-item">Time: ${bestResults[i].time} Moves: ${bestResults[i].moves}</li>`
-    textFull += textItem
+
+
+  if(localStorage.getItem('bestResults')) {
+    let bestResults = JSON.parse(localStorage.getItem('bestResults'))
+    bestResults.sort((a,b)=> a.moves - b.moves) //сортировка по кол-ву движений
+    let textFull =''
+    for (let i = 0; i < bestResults.length; i++) {
+      let textItem = `<li class="result-item">Time: ${bestResults[i].time} Moves: ${bestResults[i].moves}</li>`
+      textFull += textItem
+    }
+    popUpResult.innerHTML = ''
+    popUpResult.innerHTML = `<span class="close-icon">X</span><p class='record-title'>Table of records </p><ol class="result-list">${textFull}</ol>`
+    popUpResult.classList.add('open-popup')
+  } else {
+    popUpResult.classList.add('open-popup')
+    popUpResult.innerHTML = 
+        `<span class="close-icon">X</span>
+        <p class='record-title'>Table of records </p>
+        <p>You have not solved the puzzle yet and don't have any records. Try a new game!</p>`
   }
-  popUpResult.innerHTML = ''
-  popUpResult.innerHTML = `<span class="close-icon">X</span><p class='record-title'>Table of records </p><ol class="result-list">${textFull}</ol>`
-  popUpResult.classList.add('open-popup')
   const icon = document.querySelector('.result').querySelector('.close-icon')
   icon.addEventListener('click', ()=> {
     popUpResult.classList.remove('open-popup')
   })
-  }
  }
 
 
