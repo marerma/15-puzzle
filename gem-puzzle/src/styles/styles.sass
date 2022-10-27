@@ -117,14 +117,51 @@ html, body
   border-radius: 10px
   text-align: center
   transition: outline ease-out 0.5s
+  transform: translateX(0%)
+  transform: translateY(0%)
   @media all and (max-width: 550px)
     font-size: 26px
   @media all and (max-width: 480px)
     font-size: 24px
   @media all and (max-width: 355px)
     font-size: 22px
+
+.cell-animation-left
+  animation: moveLeft 1s ease 1
+
+.cell-animation-right
+  animation: moveLeft 1s ease 1
+.cell-animation-left
+  animation: moveRight 1s ease 1
+.cell-animation-top
+  animation: moveTop 1s ease 1
+.cell-animation-bottom
+  animation: moveBottom 1s ease 1
   
-  
+@keyframes moveLeft
+  from
+    transform: translateX(0)
+  to 
+    transform: translateX(102%)
+
+@keyframes moveRight
+  from
+    transform: translateX(0%)
+  to 
+    transform: translateX(-102%)
+
+
+@keyframes moveTop
+  from
+    transform: translateY(0)
+  to 
+    transform: translateY(102%)
+
+@keyframes moveBottom
+  from
+    transform: translateY(0%)
+  to 
+    transform: translateY(-102%)
 
 .number-cell:hover
   transition: outline ease-out 0.5s

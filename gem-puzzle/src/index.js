@@ -178,35 +178,66 @@ const changeTilePosition = (order) => {
   if ((emptyOrder - targetFieldOrder) === 1 && targetFieldOrder % a != 0) {
     tileOrder = targetFieldOrder + 1
     movesCounter ++
-  
-    changeTilePosition(tileOrder)
-     arrayToCheck = checkWin()
+
+    arrayToCheck = checkWin()
     getPopup(arrayToCheck, numbers(a))
-   
+    targetField.classList.add('cell-animation-right')
+    emptyField.classList.add('cell-animation-left')
+    
+    setTimeout(()=> {
+      targetField.classList.remove('cell-animation-right')
+      emptyField.classList.remove('cell-animation-left')
+      changeTilePosition(tileOrder)
+    }, 1000)
+    
     
   } else if ((emptyOrder - targetFieldOrder) === -1 && emptyOrder % a != 0) {
       tileOrder = Number(targetFieldOrder) - 1
       movesCounter ++
-      changeTilePosition(tileOrder)
+
       arrayToCheck = checkWin()
       getPopup(arrayToCheck, numbers(a))
+      targetField.classList.add('cell-animation-left')
+      emptyField.classList.add('cell-animation-right')
+      
+      setTimeout(()=> {
+        targetField.classList.remove('cell-animation-left')
+        emptyField.classList.remove('cell-animation-right')
+        changeTilePosition(tileOrder)
+      }, 1000)
       
     } else if ((emptyOrder - targetFieldOrder) === a) {
       tileOrder = Number(targetFieldOrder) + a
       movesCounter ++
-      changeTilePosition(tileOrder)
+
       arrayToCheck = checkWin()
       getPopup(arrayToCheck, numbers(a))
+      targetField.classList.add('cell-animation-top')
+      emptyField.classList.add('cell-animation-bottom')
+      
+      setTimeout(()=> {
+        targetField.classList.remove('cell-animation-top')
+        emptyField.classList.remove('cell-animation-bottom')
+        changeTilePosition(tileOrder)
+    }, 1000)
+      
       
     } else if ((emptyOrder - targetFieldOrder) === -a) {
     
       tileOrder = Number(targetFieldOrder) - a
       movesCounter ++
-    
-      changeTilePosition(tileOrder)
+   
+      targetField.classList.add('cell-animation-bottom')
+      emptyField.classList.add('cell-animation-top')
       arrayToCheck = checkWin()
       getPopup(arrayToCheck, numbers(a))
-      
+      setTimeout(()=> {
+      targetField.classList.remove('cell-animation-bottom')
+      emptyField.classList.remove('cell-animation-top')
+      changeTilePosition(tileOrder)
+    }, 1000)
+    
+       
   }
 }
 
