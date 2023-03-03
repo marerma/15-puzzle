@@ -12,8 +12,7 @@ function checkWin () {
     if(el.textContent === '') {
       arrayToCheck.push(0)
     } else arrayToCheck.push(parseInt(el.textContent, 10))
-    } )
- 
+    })
    return arrayToCheck
 }
 

@@ -9,8 +9,6 @@ import soundMute from './assets/icon-sound-mute2.png'
 import {pauseSong, playSong} from './audio'
 import {checkWin, getPopup} from './checkwin.js'
 import { numbers } from './numbers.js'
-import { score } from './score.js'
-
 
 const defaultLevel = 4
 let level
@@ -47,7 +45,7 @@ window.addEventListener('load', ()=> {
   popUpLoad.addEventListener('click', (e)=> {
     if(e.target.id === "yes") {
       popUpLoad.classList.remove('open-popup')
-      loadSavedGame ()
+      loadSavedGame()
       getStateGame().sound? isPlay = true : isPlay = false
       movesCounter = getStateGame().moves
       minutes = getStateGame().time.minutes
@@ -151,9 +149,6 @@ resultBtn.addEventListener('click', () => {
 
 })
 
-score()
-
-
 function changePosition (e) {
   const movesCounterField = document.querySelector('.counter')
   let a = parseInt(changeLevel(), 10)
@@ -179,8 +174,7 @@ const changeTilePosition = (order) => {
     tileOrder = targetFieldOrder + 1
     movesCounter ++
 
-    arrayToCheck = checkWin()
-    getPopup(arrayToCheck, numbers(a))
+  
     targetField.classList.add('cell-animation-right')
     emptyField.classList.add('cell-animation-left')
     
@@ -188,15 +182,15 @@ const changeTilePosition = (order) => {
       targetField.classList.remove('cell-animation-right')
       emptyField.classList.remove('cell-animation-left')
       changeTilePosition(tileOrder)
+      arrayToCheck = checkWin()
+      getPopup(arrayToCheck, numbers(a)) 
     }, 1000)
-    
+   
     
   } else if ((emptyOrder - targetFieldOrder) === -1 && emptyOrder % a != 0) {
       tileOrder = Number(targetFieldOrder) - 1
       movesCounter ++
 
-      arrayToCheck = checkWin()
-      getPopup(arrayToCheck, numbers(a))
       targetField.classList.add('cell-animation-left')
       emptyField.classList.add('cell-animation-right')
       
@@ -204,14 +198,15 @@ const changeTilePosition = (order) => {
         targetField.classList.remove('cell-animation-left')
         emptyField.classList.remove('cell-animation-right')
         changeTilePosition(tileOrder)
+        arrayToCheck = checkWin()
+        getPopup(arrayToCheck, numbers(a))
       }, 1000)
-      
+    
+
     } else if ((emptyOrder - targetFieldOrder) === a) {
       tileOrder = Number(targetFieldOrder) + a
       movesCounter ++
 
-      arrayToCheck = checkWin()
-      getPopup(arrayToCheck, numbers(a))
       targetField.classList.add('cell-animation-top')
       emptyField.classList.add('cell-animation-bottom')
       
@@ -219,8 +214,9 @@ const changeTilePosition = (order) => {
         targetField.classList.remove('cell-animation-top')
         emptyField.classList.remove('cell-animation-bottom')
         changeTilePosition(tileOrder)
+        arrayToCheck = checkWin()
+        getPopup(arrayToCheck, numbers(a)) 
     }, 1000)
-      
       
     } else if ((emptyOrder - targetFieldOrder) === -a) {
     
@@ -229,15 +225,14 @@ const changeTilePosition = (order) => {
    
       targetField.classList.add('cell-animation-bottom')
       emptyField.classList.add('cell-animation-top')
-      arrayToCheck = checkWin()
-      getPopup(arrayToCheck, numbers(a))
+
       setTimeout(()=> {
       targetField.classList.remove('cell-animation-bottom')
       emptyField.classList.remove('cell-animation-top')
       changeTilePosition(tileOrder)
+      arrayToCheck = checkWin()
+      getPopup(arrayToCheck, numbers(a))      
     }, 1000)
-    
-       
   }
 }
 
