@@ -29,7 +29,7 @@ const newGameGrid = {
 
   let allTiles = Array.from(document.querySelectorAll('.number-cell'))
   let allTilesMatrix = getMatrix(allTiles, level)
-  setGridTemplate (allTilesMatrix)
+  setGridTemplate(allTilesMatrix)
    },
 
   clearCells: function() {
